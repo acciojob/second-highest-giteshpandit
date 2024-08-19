@@ -1,21 +1,22 @@
 function secondHighest(arr) {
-    // Return -Infinity for arrays with fewer than 2 elements
     if (arr.length < 2) return -Infinity;
 
-    // Create a Set to get unique elements
-    const uniqueElements = new Set(arr);
+    let highest = -Infinity;
+    let secondHighest = -Infinity;
 
-    // If we have fewer than 2 unique elements, return -Infinity
-    if (uniqueElements.size < 2) return -Infinity;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > highest) {
+            secondHighest = highest;
+            highest = arr[i];
+        } else if (arr[i] > secondHighest && arr[i] < highest) {
+            secondHighest = arr[i];
+        }
+    }
 
-    // Convert Set to Array and sort in descending order
-    const sortedUniqueElements = Array.from(uniqueElements).sort((a, b) => b - a);
+    // If secondHighest remains -Infinity, it means all elements were the same
+    if (secondHighest === -Infinity) {
+        return -Infinity;
+    }
 
-    // Return the second highest element
-    return sortedUniqueElements[1];
+    return secondHighest;
 }
-
-module.exports = secondHighest;
-
-
-
